@@ -7,18 +7,20 @@ from . import form
 from carList.form import carlist
 from carList.models import CarList
 from datetime import datetime
-def home(r):
-    if r.user.is_authenticated:
-        return redirect('profile')
+from brand.models import Brand
+def home(r,slug1=None):
     cars=Car.objects.all()
-    
-    return render(r,'home.html',{'cars':cars,'type':'Home'})
+    brand_names=Brand.objects.all()
+    if slug1 is not None:
+        brand_name=Brand.objects.get(slug=slug1)
+        cars=Car.objects.filter(brand_name=brand_name)
+    return render(r,'home.html',{'cars':cars,'type':'Home','brands':brand_names})
 
 def profile(r):
     cars=Car.objects.all()
     carlists=CarList.objects.filter(owner=r.user)
     print(carlists)
-    return render(r,'profile.html',{'cars':cars,'carlists':carlists,'type':'Profile'})
+    return render(r,'profile.html',{'cars':cars,'carlists':carlists,'type':'Profile',})
 
 def edit_cars(r):
     if not r.user.is_authenticated:

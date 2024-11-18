@@ -12,4 +12,4 @@ class CarList(models.Model):
     owner=models.ForeignKey(User,on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.name} {self.date}'
+        return f'{self.owner} {self.name}'

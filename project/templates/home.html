@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
+<div id="slugs" style="display: flex;flex-wrap: wrap;justify-content: center;">
+{% for brand in brands %}
+<a href="{% url 'brandwise' brand.slug %}" class="btn btn-primary" style="margin: 10px;">{{brand}}</a>
+{% endfor %}
+</div>
 <div id="cards" style="display: flex;flex-wrap: wrap;justify-content: center;">
 {% for car in cars %}
 <div class="card" style="width: 18rem;margin: 20px;">
@@ -11,6 +16,11 @@
       <p>Quantity: {{car.quantity}} unit</p>
       <p>Price: {{car.price}}$</p>
       <p>{{car.slug}}</p>
+      {% if car.quantity > 0 and user.is_authenticated %}
+      <a href="{% url 'buy_car' car.id %}" class="btn btn-primary">Buy</a>
+      {% elif user.is_authenticated %}
+      <button class="btn btn-danger">Out of stock</button>
+      {% endif %}
     </div>
   </div>
 {% endfor %}
