@@ -11,8 +11,10 @@
       <p>Quantity: {{car.quantity}} unit</p>
       <p>Price: {{car.price}}$</p>
       <p>{{car.slug}}</p>
-      {% if car.quantity > 0%}
-      <a href="#" class="btn btn-primary">Buy</a>
+      {% if car.quantity > 0 %}
+      <a href="{% url 'buy_car' car.id %}" class="btn btn-primary">Buy</a>
+      {% else %}
+      <button class="btn btn-danger">Out of stock</button>
       {% endif %}
     </div>
   </div>

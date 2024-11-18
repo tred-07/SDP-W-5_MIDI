@@ -87,7 +87,7 @@ def set_password(r):
         return render(r,'form.html',{'form':form1,'type':'Change Password Without Old Password'})
     return render(r,'form.html',{'form':SetPasswordForm(user=r.user),'type':'Change Password Without Old Password'})
     
-@login_required
+
 def edit_profile(r):
     if not r.user.is_authenticated:
         return redirect('login')
@@ -103,55 +103,13 @@ def edit_profile(r):
 
 
 
-# def add_Car(r):
-#     if not r.user.is_authenticated:
-#         return redirect('login')
-#     if r.method=='POST':
-#        form1=form.AddCar(r.POST)
-#        form1.instance.Car_added_by=r.user
-#        if form1.is_valid():
-#            form1.save()
-#            return redirect('profile')
-#     return render(r,'form.html',{'form':form.AddCar(),'type':'Add Car'})
-
-# def add_musician(r):
-#     if not r.user.is_authenticated:
-#         return redirect('login')
-#     if r.method=='POST':
-#        form1=form.AddMusician(r.POST)
-#        if form1.is_valid() :
-#            form1.save()
-#            return redirect('profile')
-#     return render(r,'form.html',{'form':form.AddMusician(),'type':'Add Musician'})
-
-# @login_required
-# def edit_Car(r,id):
-#     if not r.user.is_authenticated:
-#         return redirect('login')
-#     Car=Car.objects.get(pk=id)
-#     form1=form.AddCar(instance=Car)
-#     print(type(form1.instance.Car_added_by))
-#     print(type(str(r.user)))
-#     if r.method=='POST' and form1.instance.Car_added_by==str(r.user):
-#         form1=form.AddCar(r.POST,instance=Car)
-#         if form1.is_valid():
-#             form1.save()
-#             return redirect('profile')
-#         return render(r,'form.html',{'form':form1,'type':'Edit Car'})
-#     return render(r,'form.html',{'form':form1,'type':'Edit Car'})
-
-
-# def delete_Car(r,id):
-#     if not r.user.is_authenticated:
-#         return redirect('login')
-#     Car=Car.objects.get(pk=id)
-#     print(Car)
-#     Car.delete()
-#     print(Car)
-#     return redirect('profile')
+def buy_car(r,id):
+    if not r.user.is_authenticated:
+        return redirect('login')
+    car=Car.objects.get(pk=id)
+    print(car.name)
+    print(car.quantity)
+    car.quantity-=1
+    car.save()
+    return redirect('profile')
     
-
-
-
-
-
