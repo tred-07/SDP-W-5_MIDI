@@ -20,4 +20,22 @@
   </div>
 {% endfor %}
 </div>
+<div id="carlists" style="width: 80%;margin: auto;">
+     <h1 style="text-align: center;">Buying carlist:</h1>
+    <h1 style="text-align: center;">Total: {{ carlists|length }} found</h1>
+    <div style="display: flex;flex-wrap: wrap;justify-content: center;">
+      {% for car in carlists %}
+    <div class="card" style="width: 18rem;margin: 25px;padding: 10px;">
+      <img src="{{car.image.url}}" class="card-img-top" alt="">
+      <div class="card-body">
+        <h5 class="card-title">Brand: {{car.brand_name}}</h5>
+        <h5 class="card-title">Name: {{car.name}}</h5>
+        <h5 class="card-text">{{car.description}}</h5>
+        <h5 class="card-title">Price: {{car.price}} $</h5>
+        <h5 class="card-title">Buying date: {{car.date}}</h5>
+      </div>
+    </div>
+    {% endfor %}
+    </div>
+</div>
 {% endblock %}

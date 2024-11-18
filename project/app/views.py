@@ -4,16 +4,21 @@ from django.contrib.auth import login,logout,update_session_auth_hash,authentica
 from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm,SetPasswordForm,UserChangeForm
 from django.contrib import messages 
 from . import form
-from django.contrib.auth.decorators import login_required
+from carList.form import carlist
+from carList.models import CarList
+from datetime import datetime
 def home(r):
-    # if r.user.is_authenticated:
-    #     return redirect('profile')
+    if r.user.is_authenticated:
+        return redirect('profile')
     cars=Car.objects.all()
+    
     return render(r,'home.html',{'cars':cars,'type':'Home'})
 
 def profile(r):
     cars=Car.objects.all()
-    return render(r,'profile.html',{'cars':cars,'type':'Profile'})
+    carlists=CarList.objects.filter(owner=r.user)
+    print(carlists)
+    return render(r,'profile.html',{'cars':cars,'carlists':carlists,'type':'Profile'})
 
 def edit_cars(r):
     if not r.user.is_authenticated:
@@ -111,5 +116,14 @@ def buy_car(r,id):
     print(car.quantity)
     car.quantity-=1
     car.save()
+    car1=CarList()
+    car1.name=car.name
+    car1.image=car.image
+    car1.price=car.price
+    car1.quantity+=1
+    car1.brand_name=car.brand_name
+    car1.owner=r.user
+    car1.date=datetime.now()
+    car1.save()
     return redirect('profile')
     
