@@ -8,6 +8,9 @@ from carList.form import carlist
 from carList.models import CarList
 from datetime import datetime
 from brand.models import Brand
+from django.views.generic import DetailView
+from comment.models import Comment
+from comment.form import CommentForm
 def home(r,slug1=None):
     cars=Car.objects.all()
     brand_names=Brand.objects.all()
@@ -129,3 +132,20 @@ def buy_car(r,id):
     car1.save()
     return redirect('profile')
     
+
+
+class DetailPostView(DetailView):
+    model=Car
+    pk_url_kwarg='id'
+    template_name='view.html'
+
+def detail_post_view(r,id):
+    car1=Car.objects.get(pk=id)
+    comments=Comment.objects.filter(car=car1)
+    form1=CommentForm(data=r.POST)
+    form2=CommentForm()
+    if form1.is_valid():
+        form2=form1.save(commit=False)
+        form2.car=car1
+        form2.save()
+    return render(r,'view.html',{'car':car1,'comments':comments,'form':CommentForm()})

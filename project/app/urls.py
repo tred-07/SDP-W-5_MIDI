@@ -11,5 +11,6 @@ urlpatterns=[
     path('edit_profile/',views.edit_profile,name='edit_profile'),
     path('profile/',views.profile,name='profile'),
     path('logout/',views.logOut,name='logout'),
-    path('buy_car/<int:id>',views.buy_car,name='buy_car')
+    path('buy_car/<int:id>',views.buy_car,name='buy_car'),
+    path('detail_post/<int:id>',views.detail_post_view,name='detail_view')
 ]
