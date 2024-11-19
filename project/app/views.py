@@ -181,3 +181,11 @@ class postView(generic.View):
             form2.save()
         return render(r,'view.html',{'car':car1,'comments':comments,'form':CommentForm()})
 
+class homeCls(generic.View):
+    def get(self,r,slug1=None):
+        cars=Car.objects.all()
+        brand_names=Brand.objects.all()
+        if slug1 is not None:
+            brand_name=Brand.objects.get(slug=slug1)
+            cars=Car.objects.filter(brand_name=brand_name)
+        return render(r,'home.html',{'cars':cars,'type':'Home','brands':brand_names})
