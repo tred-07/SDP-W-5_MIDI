@@ -10,7 +10,7 @@
       <p style="text-align: center;">Quantity: {{car.quantity}} unit</p>
       <p style="text-align: center;">Price: {{car.price}}$</p>
       {% if car.quantity > 0 and user.is_authenticated %}
-      <a href="{% url 'buy_car' car.id %}" class="btn btn-primary">Buy</a>
+      <a href="{% url 'buy_car' car.id %}" class="btn btn-primary">Buy Now</a>
       {% elif user.is_authenticated %}
       <button class="btn btn-danger">Out of stock</button>
       {% endif %}
