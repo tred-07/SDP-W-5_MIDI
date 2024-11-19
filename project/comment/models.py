@@ -5,7 +5,7 @@ from car.models import Car
 class Comment(models.Model):
     car=models.ForeignKey(Car,on_delete=models.CASCADE,related_name='comment')
     name=models.CharField(max_length=40)
-    email=models.EmailField(unique=True,blank=False,null=False)
+    email=models.EmailField(blank=False,null=False)
     commentDes=models.TextField()
     date=models.DateTimeField(auto_now_add=True)
 
